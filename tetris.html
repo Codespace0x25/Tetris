@@ -276,7 +276,7 @@ function loop() {
 
 // listen to keyboard events to move the active tetromino
 document.addEventListener('keydown', function(e) {
-  if (gameOver) return;
+  if (gameOver) window.location.reload; ;
 
   // left and right arrow keys (move)
   if (e.which === 37 || e.which === 39) {
