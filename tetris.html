@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="icon" type="image/x-icon" href="icon.ico">
   <title>Basic Tetris HTML Game</title>
   <meta charset="UTF-8">
   <style>
+    h1,span{
+      color: #fff;
+    }
   html, body {
     height: 100%;
+   
     margin: 0;
   }
 
@@ -22,8 +27,13 @@
   </style>
 </head>
 <body>
+   <h1>score</h1><span id="score"></span>
+  
 <canvas width="320" height="640" id="game"></canvas>
 <script>
+ 
+ 
+
 // https://tetris.fandom.com/wiki/Tetris_Guideline
 
 // get a random integer between the range of [min,max]
@@ -120,7 +130,15 @@ function placeTetromino() {
   // check for line clears starting from the bottom and working our way up
   for (let row = playfield.length - 1; row >= 0; ) {
     if (playfield[row].every(cell => !!cell)) {
-
+       var clen = new Audio('clear.mp3');
+       clen.play();
+        
+         score += 1;
+          document.getElementById('score').innerHTML = '&nbsp;' + score;
+          
+        
+      
+     
       // drop every row above this one
       for (let r = row; r >= 0; r--) {
         for (let c = 0; c < playfield[r].length; c++) {
@@ -151,6 +169,7 @@ function showGameOver() {
   context.textAlign = 'center';
   context.textBaseline = 'middle';
   context.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2);
+  alert("game over")
 }
 
 const canvas = document.getElementById('game');
@@ -277,6 +296,8 @@ function loop() {
 
 // listen to keyboard events to move the active tetromino
 document.addEventListener('keydown', function(e) {
+
+  if (gameOver) window.location.reload; ;
   if (gameOver) location.reload(); ;
 
   // left and right arrow keys (move)
@@ -292,17 +313,18 @@ document.addEventListener('keydown', function(e) {
 
   // up arrow key (rotate)
   if (e.which === 38) {
-    const matrix = rotate(tetromino.matrix);
+     const matrix = rotate(tetromino.matrix);
     if (isValidMove(matrix, tetromino.row, tetromino.col)) {
       tetromino.matrix = matrix;
+       
     }
-  }
+   }
  
 
   // down arrow key (drop)
   if(e.which === 40) {
     const row = tetromino.row + 1;
-
+     
     if (!isValidMove(tetromino.matrix, row, tetromino.col)) {
       tetromino.row = row - 1;
 
@@ -311,13 +333,17 @@ document.addEventListener('keydown', function(e) {
     }
  
 
-  
+     
     tetromino.row = row;
   }
+
+
 });
 
 // start the game
 rAF = requestAnimationFrame(loop);
+ 
 </script>
+
 </body>
 </html>
