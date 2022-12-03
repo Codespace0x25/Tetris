@@ -32,14 +32,10 @@
 <canvas width="320" height="640" id="game"></canvas>
 <script>
  
- var sor=0
+ 
 
 // https://tetris.fandom.com/wiki/Tetris_Guideline
-function st(){
-  sor++
-  document.getElementById("h1").innerHTML = sor;
 
-  
 }
 // get a random integer between the range of [min,max]
 // @see https://stackoverflow.com/a/1527820/2124254
@@ -137,7 +133,6 @@ function placeTetromino() {
     if (playfield[row].every(cell => !!cell)) {
        var clen = new Audio('clear.mp3');
        clen.play();
-       st()
          score += 1;
           document.getElementById('score').innerHTML = '&nbsp;' + score;
       
