@@ -133,8 +133,6 @@ function placeTetromino() {
     if (playfield[row].every(cell => !!cell)) {
        var clen = new Audio('clear.mp3');
        clen.play();
-         score += 1;
-          document.getElementById('score').innerHTML = '&nbsp;' + score;
       
      
       // drop every row above this one
